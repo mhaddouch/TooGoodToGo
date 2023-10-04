@@ -6,7 +6,11 @@ using System.Threading.Tasks;
 
 namespace Core.Domain
 {
-    public class Canteen
+    public class DomainException: Exception
     {
+        public DomainException(string message):base(message) {
+            
+        }   
+
     }
 }
