@@ -12,10 +12,20 @@ namespace Portal.Controllers
         {
             _logger = logger;
         }
-
+        [HttpGet]
         public IActionResult Index()
         {
             return View();
+        }
+        [HttpPost]
+        public IActionResult Index(StudentViewModel studentViewModel)
+        {
+           if(ModelState.IsValid)
+            {
+                return View("HomeScreen");
+            }
+            else { return View(); } 
+            
         }
 
         public IActionResult HomeScreen()
