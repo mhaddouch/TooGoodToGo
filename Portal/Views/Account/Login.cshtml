@@ -1,0 +1,31 @@
+﻿@model Portal.Models.StudentViewModel;
+@{
+    Layout = null;
+}
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>EcoPlates</title>
+</head>
+<body>
+    <div>
+        <div>
+            Dit is de website van EcoPlates.<br />
+            (To do: sell it better. Add pictures or something.)
+        </div>
+        <form asp-action="Index" method="post" class="m-2">
+        <div asp-validation-summary="All"></div>
+        <div>
+            <label asp-for="Name">Your name:</label>
+            <input asp-for="Name" />
+        </div>
+        <div>
+            <label asp-for="EmailAddress">Your email:</label>
+            <input asp-for="EmailAddress" />
+        </div>
+            <button type="submit" class="btn btn-primary mt-3">Login</button>
+        </form>
+    </div>
+</body>
+</html>
