@@ -9,10 +9,10 @@ namespace Core.Domain
     public class Package
     {
 
-        public string Name { get; set; }
+        public string? Name { get; set; }
         public City City { get; set; }
-        public List<Product> Products { get; set; }
-        public Canteen Canteen { get; set; }
+        public List<Product>? Products { get; set; }
+        public Canteen? Canteen { get; set; }
         public DateOnly RetrieveDate { get; set; }
         public DateOnly DeadLineRetriveDate { get; set; }
         public Student? ReserverdByStudent { get; set; }

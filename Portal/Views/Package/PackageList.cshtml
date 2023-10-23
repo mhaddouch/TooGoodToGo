@@ -1,0 +1,22 @@
+﻿@model Portal.Models.PackageViewModel;
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+</head>
+<body>
+      <h1>Meal Boxes</h1>
+
+    <ul>
+        @foreach (var package in Model.Packages)
+        {
+            <li>@package</li>
+            <!-- Add more properties or customize the display as needed -->
+        }
+    </ul>
+</body>
+</html>
+  

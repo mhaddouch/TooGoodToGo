@@ -10,18 +10,23 @@ namespace Portal.Controllers
             return View();
         }
 
+        public IActionResult Login()
+        {
+            return View();
+        }
+
         [HttpPost]
         public IActionResult Index(StudentViewModel studentViewModel)
         {
             if (ModelState.IsValid)
             {
-                return View("HomeScreen");
+                return RedirectToAction("HomeScreen","Home");
             }
             else { return View(); }
+
         }
-        public IActionResult Login()
-        {
-            return View();
-        }
+
+
+
     }
 }

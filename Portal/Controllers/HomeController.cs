@@ -18,19 +18,15 @@ namespace Portal.Controllers
         {
             return View();
         }
-        [HttpPost]
-        public IActionResult Index(StudentViewModel studentViewModel)
-        {
-           if(ModelState.IsValid)
-            {
-                return View("HomeScreen");
-            }
-            else { return View(); } 
-            
-        }
-
+       
         public IActionResult HomeScreen()
         {
+            return View();
+        }
+
+        public ViewResult PackageList() 
+        {
+
             return View();
         }
         

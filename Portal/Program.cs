@@ -1,4 +1,10 @@
+using Core.DomainServices;
+using Infrastructure.EP_EF;
+
+
 var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddScoped<IPackageRepository, PackageRepository>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
