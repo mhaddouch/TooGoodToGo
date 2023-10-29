@@ -1,22 +1,48 @@
 ﻿@model Portal.Models.PackageViewModel;
-
+@{
+    Layout = null;
+}
 
 <!DOCTYPE html>
 <html>
 <head>
     <meta name="viewport" content="width=device-width" />
     <title>Index</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <link rel="stylesheet" href="~/css/site.css">
 </head>
 <body>
-      <h1>Meal Boxes</h1>
+      <h1>Pakketten</h1>
 
     <ul>
         @foreach (var package in Model.Packages)
         {
-            <li>@package</li>
-            <!-- Add more properties or customize the display as needed -->
+            <li>@package.Name</li>
+            <li>@package.City</li>
+            <li>@package.Price</li>
         }
     </ul>
+    <style>
+        .align-right {
+            text-align: right !important;
+        }
+    </style>
+    
+    @foreach (var package in Model.Packages)
+    {
+        <div class="card mb-3">
+        <img class="card-img-top cropped-image" src="../images/packageImage.jpg" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">@package.Name</h5>
+            <p class="card-text">prijs: €@package.Price</p>
+            <p class="align-right">datum ophalen: @package.RetrieveDate</p>
+            
+        </div>
+    </div>
+    }
+
+    
 </body>
 </html>
   

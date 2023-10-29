@@ -10,6 +10,7 @@ namespace Core.Domain
     {
 
         public string? Name { get; set; }
+        public int Price { get; set; }
         public City City { get; set; }
         public List<Product>? Products { get; set; }
         public Canteen? Canteen { get; set; }
