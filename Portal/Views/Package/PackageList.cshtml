@@ -11,6 +11,7 @@
     <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
     <link rel="stylesheet" href="~/css/styles.css" />
     <link rel="stylesheet" href="~/css/site.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
 <body>
       <h1>Pakketten</h1>
@@ -36,6 +37,7 @@
         <div class="card-body">
             <h5 class="card-title">@package.Name</h5>
             <p class="card-text">prijs: €@package.Price</p>
+                <p class="card-text">locatie: @package.City, @package.Canteen</p>
             <p class="align-right">datum ophalen: @package.RetrieveDate</p>
             
         </div>

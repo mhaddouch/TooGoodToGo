@@ -35,10 +35,22 @@ namespace Portal.Controllers
                 ReserverdByStudent = null,
                 RetrieveDate = new(2002, 3, 2)
             };
+            var secondNewPackage = new Package
+            {
+                Canteen = null,
+                Products = null,
+                Price = 23,
+                City = City.Eindhoven,
+                Name = "tweede maaltijd",
+                DeadLineRetriveDate = new(2002, 3, 2),
+                ReserverdByStudent = null,
+                RetrieveDate = new(2002, 3, 2),
+            };
 
-            viewModel.Packages = viewModel.Packages.Append(newPackage);
+            //single add package
+            //viewModel.Packages = viewModel.Packages.Append(newPackage);
 
-
+            viewModel.Packages = viewModel.Packages.Concat(new[] { newPackage, secondNewPackage });
             return View("PackageList", viewModel);
         }
     }

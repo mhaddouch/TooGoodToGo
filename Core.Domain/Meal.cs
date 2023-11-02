@@ -9,8 +9,7 @@ namespace Core.Domain
     public enum Meal
     {
         drank,
-        brood,
+        avondmaaltijd,
         ontbijt
-
     }
 }
