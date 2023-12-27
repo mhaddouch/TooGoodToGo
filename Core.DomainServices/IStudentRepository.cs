@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using Core.Domain;
 
-namespace Core.Domain
+
+namespace Core.DomainServices
 {
-    public enum Location
+    public interface IStudentRepository
     {
-        la,
-        lc,
-        ld
+        Task Add(Student newStudent);
+
     }
 }
