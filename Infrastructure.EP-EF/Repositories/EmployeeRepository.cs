@@ -9,32 +9,32 @@ using System.Threading.Tasks;
 
 namespace Infrastructure.EP_EF.Repositories
 {
-    public class StudentRepository : IStudentRepository
+    public class EmployeeRepository : IEmployeeRepository
     {
         private readonly PackageDbContext _context;
 
-        public StudentRepository(PackageDbContext context)
+        public EmployeeRepository(PackageDbContext context)
         {
             _context = context;
         }
 
-        public async Task Add(Student newStudent)
+        public async Task Add(Employee newEmployee)
         {
-            _context.Students.Add(newStudent);
+            _context.Employees.Add(newEmployee);
             await _context.SaveChangesAsync();
         }
 
-        public async Task Remove(Student student)
+        public async Task Remove(Employee employee)
         {
-            _context.Students.Remove(student);
+            _context.Employees.Remove(employee);
             await _context.SaveChangesAsync();
         }
 
-        public IEnumerable<Student> GetAll()
+        public IEnumerable<Employee> GetAll()
         {
-            return _context.Students.ToList();
+            return _context.Employees.ToList();
         }
 
-        public bool Exists(int studentNr) => _context.Students.Any(s => s.StudentNumber == studentNr);
+        public bool Exists(int employeeNr) => _context.Employees.Any(e => e.EmployeeNumber == employeeNr);
     }
 }

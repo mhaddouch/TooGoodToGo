@@ -16,7 +16,6 @@ namespace Core.Domain.Tests
             //Act
             try{
                 Student1.CorrectDate();
-
             }
             catch (DomainException) {  ExectionThrown = true; }
 

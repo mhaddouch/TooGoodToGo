@@ -27,7 +27,7 @@ namespace Portal.Controllers
             var newPackage = new Package
             {
                 Canteen = null,
-                Products = null,
+                //Products = null,
                 Price = 23,
                 City = City.Breda,
                 Name = "EERSTEmeal maaltijd",
@@ -38,7 +38,7 @@ namespace Portal.Controllers
             var secondNewPackage = new Package
             {
                 Canteen = null,
-                Products = null,
+               // Products = null,
                 Price = 23,
                 City = City.Eindhoven,
                 Name = "tweede maaltijd",

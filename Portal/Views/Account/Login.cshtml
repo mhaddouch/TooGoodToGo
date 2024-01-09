@@ -14,21 +14,24 @@
             Dit is de website van EcoPlates.<br />
             (To do: sell it better. Add pictures or something.)
         </div>
-        <form asp-action="Index" method="post" class="m-2">
+        <form asp-action="Login" method="post" class="m-2">
         <div asp-validation-summary="All"></div>
         <div>
-            <label asp-for="Name">Your name:</label>
-            <input asp-for="Name" />
+                <label asp-for="StudentNumber">Your studentnumber:</label>
+                <input asp-for="StudentNumber" />
         </div>
         <div>
-            <label asp-for="EmailAddress">Your email:</label>
-            <input asp-for="EmailAddress" />
+            <label asp-for="Password">Your password:</label>
+                <input asp-for="Password" />
         </div>
             <button type="submit" class="btn btn-primary mt-3" >Login</button>
         </form>
         <div>
             index vanaf homecontroller
             klik om om in te loggen <a class="btn btn-primary" asp-controller="Account" asp-action="Register">Register</a>
+        </div>
+        <div>
+            hier als employee Registeren <a class="btn btn-primary" asp-controller="Account" asp-action="EmployeeRegister">Register</a>
         </div>
     </div>
 </body>

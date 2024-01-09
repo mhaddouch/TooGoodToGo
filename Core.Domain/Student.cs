@@ -13,11 +13,27 @@ namespace Core.Domain
         public string? EmailAddress { get; set; }
         public int StudentNumber {  get; set; }
         public int PhoneNumber {  get; set; }
-        public DateOnly BirthDate { get; set;}
-        //methode dat birthdate niet in de toekomst ligt en als je wilt aanmelden moet je minimaal 16 jaar zijn.
+        public DateOnly BirthDate
+        {
+            get => birthDate;
+            set
+            {
+                birthDate = value;
+                CorrectDate();
+            }
+        }
+
+        public int Age => DateTime.Now.Year - BirthDate.Year;
 
         private DateOnly localDate = DateOnly.FromDateTime(DateTime.Now);
-        
+        private DateOnly birthDate;
+
+
+        /// <summary>
+        /// methode dat birthdate niet in de toekomst ligt 
+        /// en als je wilt aanmelden moet je minimaal 16 jaar zijn.
+        /// </summary>
+        /// <exception cref="DomainException"></exception>
         public void CorrectDate()
         {
             

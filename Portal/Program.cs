@@ -27,6 +27,7 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(opts => opts.SignIn.Req
 //dependency injection repositories
 builder.Services.AddScoped<IPackageRepository, PackageRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();
+builder.Services.AddScoped<IEmployeeRepository, EmployeeRepository>();
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();

@@ -11,7 +11,7 @@ namespace Core.Domain
         public string? Name { get; set; }
 
 
-        public string? Email { get; set; }
+        public string? EmailAddress { get; set; }
         public int EmployeeNumber { get; set; }
         public Canteen? Canteen { get; set; }
     }
