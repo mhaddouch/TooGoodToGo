@@ -12,8 +12,8 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Infrastructure.EP_EF.Migrations
 {
     [DbContext(typeof(PackageDbContext))]
-    [Migration("20231222130425_Initial Student Entity Added")]
-    partial class InitialStudentEntityAdded
+    [Migration("20240115142905_Addingpackage")]
+    partial class Addingpackage
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -45,6 +45,36 @@ namespace Infrastructure.EP_EF.Migrations
                     b.HasKey("Id");
 
                     b.ToTable("Canteens");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            City = 0,
+                            LocationName = "LA",
+                            OfferHotMeals = true
+                        },
+                        new
+                        {
+                            Id = 2,
+                            City = 1,
+                            LocationName = "LD",
+                            OfferHotMeals = true
+                        },
+                        new
+                        {
+                            Id = 3,
+                            City = 0,
+                            LocationName = "HA",
+                            OfferHotMeals = true
+                        },
+                        new
+                        {
+                            Id = 4,
+                            City = 0,
+                            LocationName = "LA",
+                            OfferHotMeals = true
+                        });
                 });
 
             modelBuilder.Entity("Core.Domain.Employee", b =>
@@ -55,7 +85,7 @@ namespace Infrastructure.EP_EF.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int?>("CanteenId")
+                    b.Property<int>("CanteenId")
                         .HasColumnType("int");
 
                     b.Property<string>("Email")
@@ -91,6 +121,9 @@ namespace Infrastructure.EP_EF.Migrations
                     b.Property<DateTime>("DeadLineRetriveDate")
                         .HasColumnType("datetime2");
 
+                    b.Property<int>("Meal")
+                        .HasColumnType("int");
+
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
@@ -110,6 +143,30 @@ namespace Infrastructure.EP_EF.Migrations
                     b.HasIndex("ReserverdByStudentId");
 
                     b.ToTable("Packages");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            CanteenId = 1,
+                            City = 0,
+                            DeadLineRetriveDate = new DateTime(2024, 4, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Meal = 2,
+                            Name = "Healthy meal",
+                            Price = 8,
+                            RetrieveDate = new DateTime(2024, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        },
+                        new
+                        {
+                            Id = 2,
+                            CanteenId = 1,
+                            City = 0,
+                            DeadLineRetriveDate = new DateTime(2024, 4, 9, 0, 0, 0, 0, DateTimeKind.Unspecified),
+                            Meal = 1,
+                            Name = "Lots of bread",
+                            Price = 8,
+                            RetrieveDate = new DateTime(2024, 3, 15, 0, 0, 0, 0, DateTimeKind.Unspecified)
+                        });
                 });
 
             modelBuilder.Entity("Core.Domain.Product", b =>
@@ -126,17 +183,35 @@ namespace Infrastructure.EP_EF.Migrations
                     b.Property<string>("Name")
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("PackageId")
-                        .HasColumnType("int");
-
                     b.Property<string>("PhotoPath")
                         .HasColumnType("nvarchar(max)");
 
                     b.HasKey("Id");
 
-                    b.HasIndex("PackageId");
-
                     b.ToTable("Products");
+
+                    b.HasData(
+                        new
+                        {
+                            Id = 1,
+                            ContainsAlcohol = false,
+                            Name = "bread",
+                            PhotoPath = "https://i0.wp.com/www.vickyvandijk.nl/wp-content/uploads/2020/04/Vicky-van-Dijk-Knapperig-wit-brood-03.jpg?fit=1500%2C2100&ssl=1"
+                        },
+                        new
+                        {
+                            Id = 2,
+                            ContainsAlcohol = false,
+                            Name = "apple",
+                            PhotoPath = "https://images.nrc.nl/iV2oqfYUkk7SP_itBSSOkEk6-TE=/1280x/filters:no_upscale()/s3/static.nrc.nl/images/gn4/stripped/data93925993-1e8a11.jpg"
+                        },
+                        new
+                        {
+                            Id = 3,
+                            ContainsAlcohol = false,
+                            Name = "milk",
+                            PhotoPath = "https://images.unsplash.com/photo-1588710929895-6ee7a0a4d155?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8MjR8fG1pbGt8ZW58MHx8MHx8fDA%3D"
+                        });
                 });
 
             modelBuilder.Entity("Core.Domain.Student", b =>
@@ -170,11 +245,40 @@ namespace Infrastructure.EP_EF.Migrations
                     b.ToTable("Students");
                 });
 
+            modelBuilder.Entity("Core.Domain.Voorbeeld", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.HasKey("Id");
+
+                    b.ToTable("Voorbeelds");
+                });
+
+            modelBuilder.Entity("PackageProduct", b =>
+                {
+                    b.Property<int>("PackagesId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("ProductsId")
+                        .HasColumnType("int");
+
+                    b.HasKey("PackagesId", "ProductsId");
+
+                    b.HasIndex("ProductsId");
+
+                    b.ToTable("PackageProduct");
+                });
+
             modelBuilder.Entity("Core.Domain.Employee", b =>
                 {
                     b.HasOne("Core.Domain.Canteen", "Canteen")
                         .WithMany()
-                        .HasForeignKey("CanteenId");
+                        .HasForeignKey("CanteenId")
+                        .OnDelete(DeleteBehavior.Cascade);
 
                     b.Navigation("Canteen");
                 });
@@ -182,7 +286,7 @@ namespace Infrastructure.EP_EF.Migrations
             modelBuilder.Entity("Core.Domain.Package", b =>
                 {
                     b.HasOne("Core.Domain.Canteen", "Canteen")
-                        .WithMany()
+                        .WithMany("Packages")
                         .HasForeignKey("CanteenId");
 
                     b.HasOne("Core.Domain.Student", "ReserverdByStudent")
@@ -194,16 +298,24 @@ namespace Infrastructure.EP_EF.Migrations
                     b.Navigation("ReserverdByStudent");
                 });
 
-            modelBuilder.Entity("Core.Domain.Product", b =>
+            modelBuilder.Entity("PackageProduct", b =>
                 {
                     b.HasOne("Core.Domain.Package", null)
-                        .WithMany("Products")
-                        .HasForeignKey("PackageId");
+                        .WithMany()
+                        .HasForeignKey("PackagesId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.HasOne("Core.Domain.Product", null)
+                        .WithMany()
+                        .HasForeignKey("ProductsId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
                 });
 
-            modelBuilder.Entity("Core.Domain.Package", b =>
+            modelBuilder.Entity("Core.Domain.Canteen", b =>
                 {
-                    b.Navigation("Products");
+                    b.Navigation("Packages");
                 });
 
             modelBuilder.Entity("Core.Domain.Student", b =>

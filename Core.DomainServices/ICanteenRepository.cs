@@ -9,6 +9,7 @@ namespace Core.DomainServices
 {
     public interface ICanteenRepository
     {
-        IEnumerable<Student> GetAll();
+        IEnumerable<Canteen> GetAll();
+       
     }
 }

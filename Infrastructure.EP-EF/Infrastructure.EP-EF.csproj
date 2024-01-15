@@ -28,7 +28,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Migrations\SecurityDb\" />
+    <Folder Include="SecurityDb\" />
   </ItemGroup>
 
 </Project>

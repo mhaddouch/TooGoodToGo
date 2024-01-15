@@ -1,5 +1,6 @@
 ﻿@using Core.Domain;
 @model Portal.Models.EmployeeViewModel;
+@ViewBag Canteens
 @{
     Layout = null;
 }
@@ -22,22 +23,30 @@
                 <input asp-for="Name" />
             </div>
             <div>
-                <label asp-for="EmployeeNumber">Your studentNumber:</label>
+                <label asp-for="EmployeeNumber">Your employerNumber:</label>
                 <input asp-for="EmployeeNumber" />
             </div>
             <div>
-                <label asp-for="EmailAddress">Your email:</label>
-                <input asp-for="EmailAddress" />
+                <label asp-for="Email">Your email:</label>
+                <input asp-for="Email" />
             </div>
-            @* <div>
-                <select asp-for="Canteen.Id">
+            <div>
+                @foreach(var canteen in ViewBag.Canteens){
+                
+                   <p> @canteen.Id</p>
+                    <p> @canteen.LocationName</p>
+                }
+                <select class="form-control" asp-for="SelectedCanteenId">
                     <option value="">Select a canteen</option>
-                    @foreach (var canteen in Model.Canteen)
+                    @if (ViewBag.Canteens != null)
                     {
-                        <option value="@canteen.Id">@canteen.Name</option>
+                        foreach (var canteen in ViewBag.Canteens)
+                        {
+                            <option value="@canteen.Id">@canteen.LocationName</option>
+                        }
                     }
                 </select>
-            </div> *@
+            </div>
             <div>
                 <label asp-for="Password">Your password:</label>
                 <input asp-for="Password"/>
@@ -47,3 +56,5 @@
     </div>
 </body>
 </html>
+
+

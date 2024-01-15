@@ -1,7 +1,5 @@
 ﻿@model Portal.Models.PackageViewModel;
-@{
-    Layout = null;
-}
+
 
 <!DOCTYPE html>
 <html>
@@ -15,15 +13,6 @@
 </head>
 <body>
       <h1>Pakketten</h1>
-
-    <ul>
-        @foreach (var package in Model.Packages)
-        {
-            <li>@package.Name</li>
-            <li>@package.City</li>
-            <li>@package.Price</li>
-        }
-    </ul>
     <style>
         .align-right {
             text-align: right !important;
@@ -32,16 +21,24 @@
     
     @foreach (var package in Model.Packages)
     {
-        <div class="card mb-3">
-        <img class="card-img-top cropped-image" src="../images/packageImage.jpg" alt="Card image cap">
+
+        <div class="card mb-3" onclick="location.href='@Url.Action("reservePackage", "package",new { packageId = package.Id })';" style="cursor: pointer;">
+            <img class="card-img-top cropped-image" src="../images/packageImage.jpg" alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">@package.Name</h5>
             <p class="card-text">prijs: €@package.Price</p>
                 <p class="card-text">locatie: @package.City, @package.Canteen</p>
+                <p class="card-text">Meal: @package.Meal</p>
+
+
+                <form asp-controller="Package" asp-action="ReservePackage" method="post" class="m-2">
             <p class="align-right">datum ophalen: @package.RetrieveDate</p>
-            
+                    <button type="submit" class="btn btn-primary mt-3">Register</button>
+
+                </form>
         </div>
     </div>
+        
     }
 
     

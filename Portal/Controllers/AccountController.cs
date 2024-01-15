@@ -5,6 +5,9 @@ using Microsoft.AspNetCore.Authorization;
 using System.Net;
 using Core.DomainServices;
 using Core.Domain;
+using Microsoft.AspNetCore.Mvc.Rendering;
+using Microsoft.EntityFrameworkCore;
+using Infrastructure.EP_EF;
 
 namespace Portal.Controllers
 {
@@ -15,16 +18,19 @@ namespace Portal.Controllers
         private readonly SignInManager<IdentityUser> _signInManager;
         private readonly IStudentRepository _studentRepository;
         private readonly IEmployeeRepository _employeeRepository;
+        private readonly ICanteenRepository _canteenRepository;
 
         public AccountController(UserManager<IdentityUser> userManager, 
             SignInManager<IdentityUser> signInManager,
             IStudentRepository studentRepository, 
-            IEmployeeRepository employeeRepository)
+            IEmployeeRepository employeeRepository, ICanteenRepository canteenRepository)
         {
             _userManager = userManager;
             _signInManager = signInManager;
             _studentRepository = studentRepository;
             _employeeRepository = employeeRepository;
+            _canteenRepository = canteenRepository;
+           
         }
         public IActionResult Index()
         {
@@ -89,7 +95,7 @@ namespace Portal.Controllers
         }
 
         [HttpPost]
-        public async Task<IActionResult> RegisterStudent(StudentViewModel studentViewModel)
+        public async Task<IActionResult> Register(StudentViewModel studentViewModel)
         {
             Student student = null!;
             try
@@ -145,60 +151,111 @@ namespace Portal.Controllers
 
         public IActionResult EmployeeRegister()
         {
+            var canteens = _canteenRepository.GetAll(); // Replace with your actual service or data retrieval logic
+
+            ViewBag.Canteens = canteens;
             return View();
         }
+        /*  [HttpPost]
+          public async Task<IActionResult> EmployeeRegister(EmployeeViewModel employeeViewModel)
+          {
+              Employee employee = null!;
+              try
+              {
+                  employee = new Employee
+                  {
+                      EmployeeNumber = employeeViewModel.EmployeeNumber,
+                      EmailAddress = employeeViewModel.EmailAddress,
+                      Canteen = employeeViewModel.Canteen,
+                      Name = employeeViewModel.Name
+                  };
+              }
+              catch (DomainException de)
+              {
+                  ModelState.AddModelError("EmployeePresentatie", de.Message);
+              }
+
+              if (!ModelState.IsValid)
+              {
+                  return View();
+              }
+
+              try
+              {
+                  var user = new IdentityUser { UserName = employeeViewModel.EmployeeNumber.ToString() };
+                  var result = await _userManager.CreateAsync(user, employeeViewModel.Password!);
+
+                  if (!result.Succeeded)
+                  {
+                      foreach (var err in result.Errors)
+                      {
+                          ModelState.AddModelError("IdentityFramework", err.Description);
+                      }
+
+                      Console.WriteLine("user niet opgeslagen");
+
+                      return View();
+                  }
+                  await _employeeRepository.Add(employee);
+                  await _signInManager.SignInAsync(user, true);
+
+              }
+              catch (Exception ex)
+              {
+                  await _employeeRepository.Remove(employee);
+                  RedirectToAction("/home/error");
+              }
+
+              return RedirectToAction("packageList", "package");
+          }
+        */
+
         [HttpPost]
         public async Task<IActionResult> EmployeeRegister(EmployeeViewModel employeeViewModel)
         {
-            Employee employee = null!;
-            try
-            {
-                employee = new Employee
-                {
-                    EmployeeNumber = employeeViewModel.EmployeeNumber,
-                    EmailAddress = employeeViewModel.EmailAddress,
-                    Canteen = employeeViewModel.Canteen,
-                    Name = employeeViewModel.Name
-                };
-            }
-            catch (DomainException de)
-            {
-                ModelState.AddModelError("EmployeePresentatie", de.Message);
-            }
-
             if (!ModelState.IsValid)
             {
+                var canteens = _canteenRepository.GetAll(); // Replace with your actual service or data retrieval logic
+
+                ViewBag.Canteens = canteens;
                 return View();
             }
 
-            try
+            var user = new IdentityUser { UserName = employeeViewModel.EmployeeNumber.ToString() };
+            var result = await _userManager.CreateAsync(user, employeeViewModel.Password!);
+            if (!result.Succeeded)
             {
-                var user = new IdentityUser { UserName = employeeViewModel.EmployeeNumber.ToString() };
-                var result = await _userManager.CreateAsync(user, employeeViewModel.Password!);
-
-                if (!result.Succeeded)
+                foreach (var err in result.Errors)
                 {
-                    foreach (var err in result.Errors)
-                    {
-                        ModelState.AddModelError("IdentityFramework", err.Description);
-                    }
-
-                    Console.WriteLine("user niet opgeslagen");
-
-                    return View();
+                    ModelState.AddModelError("IdentityFramework", err.Description);
                 }
-                await _employeeRepository.Add(employee);
-                await _signInManager.SignInAsync(user, true);
 
+                var canteens = _canteenRepository.GetAll(); // Replace with your actual service or data retrieval logic
+
+                ViewBag.Canteens = canteens;
+                Console.WriteLine("user niet opgeslagen");
+
+                return View();
             }
-            catch (Exception ex)
+            Console.WriteLine("hij komt tot hier");
+            
+            //stap 1 canteen ophalen aan de hand van de id die in mijn employeeVM zit
+            //sla op in variable naam die net is ingezet
+            var correspondingCanteen = _canteenRepository.GetAll();
+            await _employeeRepository.Add(new Employee
             {
-                await _employeeRepository.Remove(employee);
-                RedirectToAction("/home/error");
-            }
 
+                Name = employeeViewModel.Name,
+                EmployeeNumber = employeeViewModel.EmployeeNumber,
+                Email = employeeViewModel.Email,
+                CanteenId = employeeViewModel.SelectedCanteenId,
+            }) ;
+
+            await _signInManager.SignInAsync(user, true);
             return RedirectToAction("packageList", "package");
         }
+
+      
 
 
     }

@@ -10,7 +10,10 @@ namespace Core.DomainServices
     public interface IPackageRepository
     {
         IEnumerable<Package> Packages { get; }
-
+        IEnumerable<Package> GetAll();
         void AddPackage(Package newPackage);
+        Task ReservePackage(Package package, Student student);
+        Package GetPackageById(int packageId);
+
     }
 }

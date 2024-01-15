@@ -15,5 +15,6 @@ namespace Core.Domain
         public City City { get; set; }
 
         public Boolean OfferHotMeals { get; set; }
+        public ICollection<Package>? Packages { get; } = new List<Package>();
     }
 }

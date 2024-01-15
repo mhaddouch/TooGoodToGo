@@ -14,5 +14,7 @@ namespace Core.DomainServices
         bool Exists(int studentNr);
         IEnumerable<Student> GetAll();
         Task Remove(Student student);
+
+
     }
 }

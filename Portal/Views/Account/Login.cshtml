@@ -1,4 +1,4 @@
-﻿@model Portal.Models.StudentViewModel;
+﻿@model Portal.Models.LoginViewModel;
 @{
     Layout = null;
 }
@@ -17,8 +17,8 @@
         <form asp-action="Login" method="post" class="m-2">
         <div asp-validation-summary="All"></div>
         <div>
-                <label asp-for="StudentNumber">Your studentnumber:</label>
-                <input asp-for="StudentNumber" />
+                <label asp-for="RegistrationNumber">Your studentnumber:</label>
+                <input asp-for="RegistrationNumber" />
         </div>
         <div>
             <label asp-for="Password">Your password:</label>
