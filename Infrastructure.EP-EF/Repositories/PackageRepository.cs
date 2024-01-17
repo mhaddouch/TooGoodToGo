@@ -35,19 +35,28 @@ namespace Infrastructure.EP_EF.Repositories
         {
             return _context.Packages;
         }
-        public async Task ReservePackage(Package package, Student student)
-        {
-            package.ReserverdByStudent = student;
-            
-            await _context.SaveChangesAsync();
-        }
+         public async Task ReservePackage(Package package, Student student)
+         {
+             package.ReserverdByStudent = student;
+            _context.Packages.Update(package);
+             await _context.SaveChangesAsync();
+         }
 
-       
-        public Package GetPackageById(int packageId)
+     
+
+            public Package GetPackageById(int packageId)
         {
             return _context.Packages.FirstOrDefault(p => p.Id == packageId);
         }
 
+        public IEnumerable<Package> GetReservePackage() {
+            return _context.Packages.Include(x => x.ReserverdByStudent).Where(r =>r.ReserverdByStudent != null);
+        }
+
+        public IEnumerable<Package> GetNonReservePackage()
+        {
+            return _context.Packages.Include(x => x.ReserverdByStudent).Where(r => r.ReserverdByStudent == null);
+        }
 
     }
 }

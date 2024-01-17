@@ -26,7 +26,8 @@ builder.Services.AddDbContext<SecurityDbContext>(options =>
 
 builder.Services.AddIdentity<IdentityUser, IdentityRole>(opts => opts.SignIn.RequireConfirmedAccount = false)
     .AddEntityFrameworkStores<SecurityDbContext>()
-    .AddDefaultTokenProviders();
+    .AddDefaultTokenProviders()
+    .AddRoles<IdentityRole>();
 //dependency injection repositories
 builder.Services.AddScoped<IPackageRepository, PackageRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();

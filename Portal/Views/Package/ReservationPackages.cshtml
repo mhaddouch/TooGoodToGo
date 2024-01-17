@@ -1,5 +1,7 @@
 ﻿@model Portal.Models.PackageViewModel;
-
+@{
+    Layout = null;
+}
 
 <!DOCTYPE html>
 <html>
@@ -10,39 +12,38 @@
     <link rel="stylesheet" href="~/css/styles.css" />
     <link rel="stylesheet" href="~/css/site.css">
     <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="icon" href="~/images/EcoPlatesIcon.png"
 </head>
 <body>
-      <h1>Pakkettesssn</h1>
+    <nav class="navbar navbar-light bg-light">
+        <img src= "~/images/EcoPlatesLogo.png" width="150" height="150" alt="">
+        <a class="navbar-brand" href="#">Navbar</a>
+
+    </nav>
+    <h1>Pakketten</h1>
     <style>
         .align-right {
             text-align: right !important;
         }
     </style>
-    
+
     @foreach (var package in Model.Packages)
     {
 
         <div class="card mb-3" onclick="location.href='@Url.Action("reservePackage", "package",new { packageId = package.Id })';" style="cursor: pointer;">
             <img class="card-img-top cropped-image" src="../images/packageImage.jpg" alt="Card image cap">
-        <div class="card-body">
-            <h5 class="card-title">@package.Name</h5>
-            <p class="card-text">prijs: €@package.Price</p>
+            <div class="card-body">
+                <h5 class="card-title">@package.Name</h5>
+                <p class="card-text">prijs: €@package.Price</p>
                 <p class="card-text">locatie: @package.City, @package.Canteen</p>
                 <p class="card-text">Meal: @package.Meal</p>
-
-
-                <form asp-controller="package" asp-action="reservationPackages" method="post" class="m-2">
-                    <input type="hidden" name="packageId" value="@package.Id"/>
-            <p class="align-right">datum ophalen: @package.RetrieveDate</p>
-                    <button type="submit" class="btn btn-primary mt-3">Register</button>
-
-                </form>
+            </div>
         </div>
-    </div>
-        
+
     }
 
-    
+
 </body>
 </html>
-  
+
+
