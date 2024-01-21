@@ -46,16 +46,16 @@ namespace Infrastructure.EP_EF.Repositories
 
             public Package GetPackageById(int packageId)
         {
-            return _context.Packages.FirstOrDefault(p => p.Id == packageId);
+            return _context.Packages.Include(p => p.Products).FirstOrDefault(p => p.Id == packageId);
         }
 
         public IEnumerable<Package> GetReservePackage() {
-            return _context.Packages.Include(x => x.ReserverdByStudent).Where(r =>r.ReserverdByStudent != null);
+            return _context.Packages.Include(x => x.ReserverdByStudent).Where(r =>r.ReserverdByStudent != null).Include(p => p.Products);
         }
 
         public IEnumerable<Package> GetNonReservePackage()
         {
-            return _context.Packages.Include(x => x.ReserverdByStudent).Where(r => r.ReserverdByStudent == null);
+            return _context.Packages.Include(x => x.ReserverdByStudent).Where(r => r.ReserverdByStudent == null).Include(p => p.Products);
         }
 
     }

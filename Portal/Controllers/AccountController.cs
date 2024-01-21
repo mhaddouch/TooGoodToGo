@@ -8,6 +8,7 @@ using Core.Domain;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
 using Infrastructure.EP_EF;
+using System.Security.Claims;
 
 namespace Portal.Controllers
 {
@@ -79,12 +80,14 @@ namespace Portal.Controllers
             if(_employeeRepository.Exists(registrationNumber))
             {
                 // ingelogde gebruiker is medewerker -->
+                await _userManager.AddClaimAsync(user, new Claim("Employee", "true"));
                 return RedirectToAction("packageList", "package");
             }
             else if (_studentRepository.Exists(registrationNumber))
             {
                 // ingelogde gebruiker is student -->
-                return RedirectToAction("packageList", "package");
+                await _userManager.AddClaimAsync(user, new Claim("Student", "true"));
+                return RedirectToAction("ReservationPackages", "package");
             }
             else
             {
@@ -218,6 +221,7 @@ namespace Portal.Controllers
                 var canteens = _canteenRepository.GetAll(); // Replace with your actual service or data retrieval logic
 
                 ViewBag.Canteens = canteens;
+
                 return View();
             }
 
@@ -252,6 +256,8 @@ namespace Portal.Controllers
             }) ;
 
             await _signInManager.SignInAsync(user, true);
+                await _userManager.AddToRoleAsync(user, "Employee");
+
             return RedirectToAction("packageList", "package");
         }
 

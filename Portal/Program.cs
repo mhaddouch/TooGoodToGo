@@ -28,6 +28,11 @@ builder.Services.AddIdentity<IdentityUser, IdentityRole>(opts => opts.SignIn.Req
     .AddEntityFrameworkStores<SecurityDbContext>()
     .AddDefaultTokenProviders()
     .AddRoles<IdentityRole>();
+
+builder.Services.AddAuthorization(options =>
+    options.AddPolicy("Employee", policy => policy.RequireClaim("Employee")));
+builder.Services.AddAuthorization(options =>
+    options.AddPolicy("Student", policy => policy.RequireClaim("Student")));
 //dependency injection repositories
 builder.Services.AddScoped<IPackageRepository, PackageRepository>();
 builder.Services.AddScoped<IStudentRepository, StudentRepository>();

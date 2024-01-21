@@ -13,6 +13,8 @@ namespace Core.Domain
         public List<Product> Products { get; } = [];
      //   public List<Voorbeeld> Voorbeelds { get; } = [];
         
+
+          
         public string? Name { get; set; }
         public int Price { get; set; }
         public City City { get; set; }
@@ -41,14 +43,19 @@ namespace Core.Domain
 
         public void IsAvailableToStudent(Product product = null!)
         {
-            if(product != null && product.ContainsAlcohol 
-                || (Products?.Any(p => p.ContainsAlcohol) ?? false))
-            {
-                if (ReserverdByStudent?.Age < 18)
+            
+                if ((product != null && product.ContainsAlcohol) || (Products?.Any(p => p.ContainsAlcohol) ?? false))
                 {
-                    throw new DomainException("Minderjarigen mogen geen alcoholische dranken bestellen");
+                    if (ReserverdByStudent?.Age < 18)
+                    {
+                        throw new DomainException("Minderjarigen mogen geen 18+ pakketten bestellen");
+                    }
                 }
-            }
+            
+         
+
+
         }
+        
     }
 }
