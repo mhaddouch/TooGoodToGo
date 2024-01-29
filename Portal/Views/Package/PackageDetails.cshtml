@@ -1,0 +1,27 @@
+﻿@model Portal.Models.PackageDetailsViewModel
+@{
+    Layout = null;
+}
+
+<html>
+<body>
+    <h2>Package Details</h2>
+
+    <p>Package ID: @Model.Package.Id</p>
+    <!-- Display other package details -->
+
+    <h3>Products in Package:</h3>
+    <div>
+        @foreach (var product in Model.Products)
+        {
+            <p>@product.Name</p>
+            <img src="@product.PhotoPath" width="120" height="120" />
+            if(@product.ContainsAlcohol== true)
+            {
+                <p>dit product bevat alcohol</p>
+            }
+            
+        }
+    </div>
+</body>
+</html>

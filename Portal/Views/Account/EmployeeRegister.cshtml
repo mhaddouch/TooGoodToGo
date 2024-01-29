@@ -5,55 +5,82 @@
     Layout = null;
 }
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoPlates</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #FFBE99;
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .custom-card {
+            background-color: #f8f9fa; /* Set a card background color */
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+            .custom-card form {
+                margin-top: 20px;
+            }
+    </style>
 </head>
 <body>
-    <div>
-        <div>
-            Dit is de website van EcoPlates.<br />
-            (To do: sell it better. Add pictures or something.)
-        </div>
-        <form asp-action="EmployeeRegister" method="post" class="m-2">
-            <div asp-validation-summary="All"></div>
-            <div>
-                <label asp-for="Name">Your name:</label>
-                <input asp-for="Name" />
+    <div class="card-container">
+        <div class="custom-card">
+            <div class="text-center">
+                <h1 class="mb-4">Registratie</h1>
+                <p>       Maak hier jouw nieuwe werknemers account aan</p>
             </div>
-            <div>
-                <label asp-for="EmployeeNumber">Your employerNumber:</label>
-                <input asp-for="EmployeeNumber" />
-            </div>
-            <div>
-                <label asp-for="Email">Your email:</label>
-                <input asp-for="Email" />
-            </div>
-            <div>
-                @foreach(var canteen in ViewBag.Canteens){
-                
-                   <p> @canteen.Id</p>
-                    <p> @canteen.LocationName</p>
-                }
-                <select class="form-control" asp-for="SelectedCanteenId">
-                    <option value="">Select a canteen</option>
-                    @if (ViewBag.Canteens != null)
-                    {
-                        foreach (var canteen in ViewBag.Canteens)
+            <form asp-action="EmployeeRegister" method="post" class="m-2">
+                <div asp-validation-summary="All"></div>
+                <div class="form-group">
+                    <label asp-for="Name">Naam:</label>
+                    <input asp-for="Name" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="EmployeeNumber">Werknemersnummer:</label>
+                    <input asp-for="EmployeeNumber" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Email">E-mail:</label>
+                    <input asp-for="Email" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="SelectedCanteenId">Selecteer een kantine:</label>
+                    <select class="form-control" asp-for="SelectedCanteenId">
+                        <option value="">Selecteer een kantine</option>
+                        @if (ViewBag.Canteens != null)
                         {
-                            <option value="@canteen.Id">@canteen.LocationName</option>
+                            foreach (var canteen in ViewBag.Canteens)
+                            {
+                                <option value="@canteen.Id">@canteen.LocationName</option>
+                            }
                         }
-                    }
-                </select>
-            </div>
-            <div>
-                <label asp-for="Password">Your password:</label>
-                <input asp-for="Password"/>
-            </div>
-            <button type="submit" class="btn btn-primary mt-3">Register</button>
-        </form>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password">Wachtwoord:</label>
+                    <input asp-for="Password" class="form-control" />
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Registreer</button>
+            </form>
+        </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>
 

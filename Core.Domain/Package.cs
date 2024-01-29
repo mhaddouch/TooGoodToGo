@@ -10,7 +10,7 @@ namespace Core.Domain
     {
         public int Id { get; set; }
         
-        public List<Product> Products { get; } = [];
+        public List<Product> Products { get; set; } = [];
      //   public List<Voorbeeld> Voorbeelds { get; } = [];
         
 

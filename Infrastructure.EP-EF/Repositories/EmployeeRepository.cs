@@ -36,5 +36,13 @@ namespace Infrastructure.EP_EF.Repositories
         }
 
         public bool Exists(int employeeNr) => _context.Employees.Any(e => e.EmployeeNumber == employeeNr);
+
+       public async Task<Employee> GetEmployeeByEmployeeNumber(int employeeNumber)
+        {
+            var employee = _context.Employees.Include(x=> x.Canteen).FirstOrDefault(x => x.EmployeeNumber == employeeNumber);
+
+            await _context.SaveChangesAsync();
+            return employee;
+        }
     }
 }

@@ -15,10 +15,10 @@
 </head>
 <body>
     <script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
-    <nav class="navbar navbar-expand-lg navbar-light bg-light">
+    <nav class="navbar navbar-expand-lg navbar-light">
         <a class="navbar-brand" href="#">
-            <img src="~/images/EcoPlatesLogo.png" width="30" height="30" class="d-inline-block align-top" alt="">
-            EcoPlates
+            <img src="~/images/NieuweLogoWithoutLetters.png" width="120" height="120" class="d-inline-block align-top rounded-circle" alt="">
+
         </a>
 
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -35,37 +35,22 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDarkDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Dropdown
+                        Kantine's
                     </a>
                     <ul class="dropdown-menu dropdown-menu-dark" aria-labelledby="navbarDarkDropdownMenuLink">
-                        <li><a class="dropdown-item" href="#">Action</a></li>
+                       
                         @foreach (var canteen in Model.Canteens)
                         {
-                            <a class="dropdown-item" asp-controller="Package" asp-action="PackageList">@canteen.LocationName</a>
+                            <a class="dropdown-item" asp-controller="Package" asp-action="CanteenList" asp-route-canteenId="@canteen.Id">@canteen.LocationName</a>
 
                         }
                     </ul>
                 </li>
-
-                <li class="nav-item dropdown">
-                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        Kantine's'
-                    </a>
-
-
-                    <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        @foreach(var canteen in Model.Canteens)
-                        {
-                            <a class="dropdown-item" asp-controller="Package" asp-action="PackageList">@canteen.LocationName</a>
-                            
-                        }
-                        
-                        <!-- Add more dropdown items as needed -->
-                    </div>
-                        
-                        
-                    
-                    
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Package" asp-action="CreatePackage">Maak pakket aan</a>
+                </li>
+                <li class="nav-item ms-auto">
+                    <a class="nav-link" asp-controller="Account" asp-action="Login">Log uit</a>
                 </li>
             </ul>
         </div>
@@ -80,15 +65,19 @@
     @foreach (var package in Model.Packages)
     {
 
-        <div class="card mb-3">
+        <div class="card mb-3" style="max-width: 90rem;">
             <img class="card-img-top cropped-image" src="../images/packageImage.jpg" alt="Card image cap">
         <div class="card-body">
             <h5 class="card-title">@package.Name</h5>
             <p class="card-text">prijs: €@package.Price</p>
-                <p class="card-text">locatie: @package.City, @package.Canteen</p>
+                <p class="card-text">locatie: @package.City, @package.Canteen.LocationName</p>
                 <p class="card-text">Meal: @package.Meal</p>
-               
-                    
+
+                <form asp-controller="package" asp-action="packageDetails" method="post" class="m-2">
+                    <input type="hidden" name="packageId" value="@package.Id" />
+                    <button type="submit" class="btn btn-primary mt-3">Producten</button>
+                </form>>
+
                 
                 
 
@@ -105,13 +94,43 @@
                             <p style="position: absolute; bottom: 0; right:0; color: red; font-size: 24px; font-weight: bold;">18+</p>
 
                         }
+                        
+                        
 
                     }
-                    <p class="align-right">datum ophalen: @package.RetrieveDate</p>
-                    <button type="submit" class="btn btn-primary mt-3">Reserveer</button>
+                   
+                    @if (User.HasClaim("Student", "true"))
+                    {
+                        <button type="submit" class="btn btn-primary mt-3">Reserveer</button>
+
+                    }
+           
+
 
                 </form>
+                <form asp-controller="package" asp-action="deletePackage" method="post" class="m-2">
+                    <input type="hidden" name="packageId" value="@package.Id" />
+                    @if (User.HasClaim("Employee", "true") && package.Canteen.Id == Model.Employee?.CanteenId)
+                    {
+                        <button type="submit" class="btn btn-primary mt-3">Verwijderen</button>
+
+                    }
+
+                </form>
+                <form asp-controller="package" asp-action="updatePackage" method="post" class="m-2">
+                    <input type="hidden" name="packageId" value="@package.Id" />
+                    @if (User.HasClaim("Employee", "true") && package.Canteen.Id == Model.Employee?.CanteenId)
+                    {
+                        <button type="submit" class="btn btn-primary mt-3">Wijzigen</button>
+
+                    }
+
+                </form>
+
+                <p class="align-right">datum ophalen: @package.RetrieveDate</p>
         </div>
+        
+
     </div>
         
     }

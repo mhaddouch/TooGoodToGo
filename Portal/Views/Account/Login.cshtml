@@ -3,36 +3,63 @@
     Layout = null;
 }
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>EcoPlates</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+    <style>
+        body {
+            background-color: #FFBE99; /* Set a background color */
+        }
+
+        .card-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+
+        .custom-card {
+            background-color: #f8f9fa; /* Set a card background color */
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+
+            .custom-card form {
+                margin-top: 20px;
+            }
+    </style>
 </head>
 <body>
-    <div>
-        <div>
-            Dit is de website van EcoPlates.<br />
-            (To do: sell it better. Add pictures or something.)
-        </div>
-        <form asp-action="Login" method="post" class="m-2">
-        <div asp-validation-summary="All"></div>
-        <div>
-                <label asp-for="RegistrationNumber">Your studentnumber:</label>
-                <input asp-for="RegistrationNumber" />
-        </div>
-        <div>
-            <label asp-for="Password">Your password:</label>
-                <input asp-for="Password" />
-        </div>
-            <button type="submit" class="btn btn-primary mt-3" >Login</button>
-        </form>
-        <div>
-            index vanaf homecontroller
-            klik om om in te loggen <a class="btn btn-primary" asp-controller="Account" asp-action="Register">Register</a>
-        </div>
-        <div>
-            hier als employee Registeren <a class="btn btn-primary" asp-controller="Account" asp-action="EmployeeRegister">Register</a>
+    <div class="card-container">
+        <div class="custom-card">
+            <div class="text-center">
+                <h1 class="mb-4">EcoPlates</h1>
+            </div>
+            <form asp-action="Login" method="post" class="m-2">
+                <div asp-validation-summary="All"></div>
+                <div class="form-group">
+                    <label asp-for="RegistrationNumber">Student/werknemernummer:</label>
+                    <input asp-for="RegistrationNumber" class="form-control" />
+                </div>
+                <div class="form-group">
+                    <label asp-for="Password">Wachtwoord:</label>
+                    <input asp-for="Password" type="password" class="form-control" />
+                </div>
+                <button type="submit" class="btn btn-primary mt-3">Log in</button>
+            </form>
+            <div class="text-center mt-3">
+                <p>Geen account? Klik hier om een studenten account aan te maken <a class="btn btn-primary" asp-controller="Account" asp-action="Register">Register</a></p>
+                <p>Geen account? Klik hier om een werknemers account aan te maken <a class="btn btn-primary" asp-controller="Account" asp-action="EmployeeRegister">Register</a></p>
+            </div>
         </div>
     </div>
+
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.12.9/dist/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </body>
 </html>

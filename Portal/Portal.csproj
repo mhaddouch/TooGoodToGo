@@ -5,6 +5,7 @@
     <TargetFramework>net7.0</TargetFramework>
     <Nullable>enable</Nullable>
     <ImplicitUsings>enable</ImplicitUsings>
+    <LangVersion>preview</LangVersion>
   </PropertyGroup>
 
   <ItemGroup>
@@ -23,6 +24,18 @@
   <ItemGroup>
     <ProjectReference Include="..\Core.DomainServices\Core.DomainServices.csproj" />
     <ProjectReference Include="..\Infrastructure.EP-EF\Infrastructure.EP-EF.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <UpToDateCheckInput Remove="Views\Package\CreatePackage.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <_ContentIncludedByDefault Remove="Views\Package\CreatePackage.cshtml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="Views\Package\CreatePackage.cshtml" />
   </ItemGroup>
 
 </Project>

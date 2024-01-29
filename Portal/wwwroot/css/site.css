@@ -17,9 +17,17 @@ html {
   min-height: 100%;
 }
 
+nav {
+    background-color: #00592D;
+    color: white;
+}
+.navbar-light .navbar-nav .nav-link {
+    color: white;
+}
+
 body {
     margin-bottom: 60px;
-    background-color: #eae0d5;
+    background-color: #FFBE99;
 }
 
 

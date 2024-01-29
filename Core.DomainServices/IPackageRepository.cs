@@ -11,11 +11,17 @@ namespace Core.DomainServices
     {
         IEnumerable<Package> Packages { get; }
         IEnumerable<Package> GetAll();
-        void AddPackage(Package newPackage);
+        Task AddPackage(Package newPackage);
+        Task RemovePackage(Package package);
         Task ReservePackage(Package package, Student student);
         Package GetPackageById(int packageId);
         IEnumerable<Package> GetReservePackage();
         IEnumerable<Package> GetNonReservePackage();
+        IEnumerable<Package> GetReservedPackagesByLocation(int canteenId);
+
+        Task EditPackage(Package updatePackage);
+
+        IQueryable<Package> Query();
 
     }
 }

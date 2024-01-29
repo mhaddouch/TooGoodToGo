@@ -7,11 +7,8 @@ using System.Threading.Tasks;
 
 namespace Core.DomainServices
 {
-    public interface ICanteenRepository
+    public interface IProductRepository
     {
-        IEnumerable<Canteen> GetAll();
-        IEnumerable<Package> GetPackagesByLocation(string locationName);
-
-
+        IEnumerable<Product> GetAll();
     }
 }

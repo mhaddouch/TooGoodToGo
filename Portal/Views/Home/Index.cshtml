@@ -1,16 +1,32 @@
 ﻿@{
     Layout = null;
 }
+
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
-    <meta name="viewport" content="width=device-width" />
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
     <title>Index</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <link rel="stylesheet" href="~/css/site.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
 </head>
-<body>
-    <div>
-        index vanaf homecontroller
-        klik om om in te loggen <a class="btn btn-primary" asp-controller="Account" asp-action="Login">Rsvp Now</a>
+<body class="d-flex align-items-center justify-content-center" style="height: 100vh;">
+
+    <div class="text-center">
+        <img src="~/images/NieuweLogo.png" alt="Your Image" class="img-fluid" style="width: 200px;" />
+        <h2 class="mb-4">
+            EcoPlates is een innovatieve app waarmee studenten duurzaam kunnen eten bestellen.
+            Maak gebruik van de TooGoodToGo-functionaliteit en bestel heerlijke maaltijden
+            die anders verspild zouden worden. Doe mee aan de strijd tegen voedselverspilling!
+        </h2>
+        <p>Klik om in te loggen <a class="btn btn-primary" asp-controller="Account" asp-action="Login">Log in </a></p>
+
     </div>
+
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
 </body>
 </html>

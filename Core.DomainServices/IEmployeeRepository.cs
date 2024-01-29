@@ -14,5 +14,6 @@ namespace Core.DomainServices
         bool Exists(int employeeNr);
         IEnumerable<Employee> GetAll();
         Task Remove(Employee employee);
+        Task<Employee> GetEmployeeByEmployeeNumber(int employeeNumber);
     }
 }

@@ -22,7 +22,15 @@ namespace Infrastructure.EP_EF.Repositories
         {
              return _context.Canteens.ToList();
         }
-        
+
+        public IEnumerable<Package> GetPackagesByLocation(string locationName)
+        {
+            return _context.Canteens
+                .Where(c => c.LocationName == locationName)
+                .SelectMany(c => c.Packages)
+                .ToList();
+        }
+
 
     }
 }

@@ -1,0 +1,100 @@
+﻿@using Core.Domain;
+@model Portal.Models.CreatePackageViewModel;
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Index</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.css" />
+    <link rel="stylesheet" href="~/css/styles.css" />
+    <link rel="stylesheet" href="~/css/site.css">
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <script src="/lib/bootstrap/dist/js/bootstrap.js"></script>
+    <nav class="navbar navbar-expand-lg navbar-light">
+        <a class="navbar-brand" href="#">
+            <img src="~/images/NieuweLogoWithoutLetters.png" width="120" height="120" class="d-inline-block align-top rounded-circle" alt="">
+
+        </a>
+
+        <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+
+        <div class="collapse navbar-collapse" id="navbarNav">
+            <ul class="navbar-nav mr-auto">
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Package" asp-action="ReservationPackages">Gereserveerde Pakketten</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Package" asp-action="PackageList">Pakketten Lijst</a>
+                </li>
+
+
+
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Package" asp-action="CreatePackage">Maak pakket aan</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" asp-controller="Account" asp-action="Login">Log uit</a>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <h1>Wijzig pakket</h1>
+
+    <div>
+        <div>
+            Dit is de website van EcoPlates.<br />
+            (To do: sell it better. Add pictures or something.)
+        </div>
+        <form asp-action="CreatePackage" method="post" class="m-2">
+            <div asp-validation-summary="All"></div>
+            <div>
+                <label asp-for="Name">Name:</label>
+                <input asp-for="Name" />
+            </div>
+            <div>
+                <label asp-for="Price">Prijs:</label>
+                <input asp-for="Price" />
+            </div>
+
+            <div>
+                <label asp-for="City">Stad:</label>
+                <select asp-for="City" asp-items="Html.GetEnumSelectList<City>()">
+                    <option value="">Kies een stad</option>
+                </select>
+            </div>
+            <div>
+                <label asp-for="Meal">Type maaltijd:</label>
+                <select asp-for="Meal" asp-items="Html.GetEnumSelectList<Meal>()">
+                    <option value="">Kies een type maaltijd</option>
+                </select>
+            </div>
+
+            <div>
+                <label asp-for="RetrieveDate">Ophaaldatum:</label>
+                <input asp-for="RetrieveDate" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+            </div>
+            <div>
+                <label asp-for="DeadLineRetriveDate">Deadline ophaaldatum:</label>
+                <input asp-for="DeadLineRetriveDate" type="date" value="@DateTime.Now.ToString("yyyy-MM-dd")" />
+            </div>
+            <div class="form-group">
+                <label for="SelectedProductIds">Select Products:</label>
+                @Html.DropDownListFor(model => model.SelectedProductIds, Model.Products, new { @class = "form-control", multiple = "multiple" })
+            </div>
+            <button type="submit" class="btn btn-primary mt-3">Pakket plaatsten</button>
+        </form>
+    </div>
+
+</body>
+</html>
+
+

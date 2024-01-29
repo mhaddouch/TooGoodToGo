@@ -149,7 +149,7 @@ namespace Portal.Controllers
                 RedirectToAction("/home/error");
             }
 
-            return RedirectToAction("packageList", "package");
+            return RedirectToAction("login", "account");
         }
 
         public IActionResult EmployeeRegister()
@@ -256,9 +256,11 @@ namespace Portal.Controllers
             }) ;
 
             await _signInManager.SignInAsync(user, true);
-                await _userManager.AddToRoleAsync(user, "Employee");
+           
+            
 
-            return RedirectToAction("packageList", "package");
+
+            return RedirectToAction("login", "account");
         }
 
       
