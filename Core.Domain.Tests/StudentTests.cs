@@ -7,22 +7,30 @@ namespace Core.Domain.Tests
     public class StudentTests
     {
         [Fact]
-        public void AgeMustBeHigherThan16AndLowerThanToday()
+        public void ThrowErrorWhenUserisUnder16()
         {
             //Arrage
-            var Student = new Student { BirthDate = new DateOnly(2000,6,4)};
-            var Student1 = new Student { BirthDate = new DateOnly(2008, 6, 4) };
-            bool ExectionThrown = false;
+            var student = new Student();
+            var birhtdate = new DateOnly(2009, 6, 4);
             //Act
-            try{
-                Student1.CorrectDate();
-            }
-            catch (DomainException) {  ExectionThrown = true; }
-
+            Assert.Throws<DomainException>(()=>student.BirthDate = birhtdate);
             //Assert
-            Assert.True(ExectionThrown);
+            Assert.Equal(student.BirthDate, birhtdate);
         }
         //testWhen 15 year old
         //succes a
+
+        [Fact]
+        public void GiveSuccesWhenStudentIsAbove16()
+        {
+            //Arrage
+            var student = new Student();
+            var birhtdate = new DateOnly(2000, 6, 4);
+            //Act
+            student.BirthDate = birhtdate;
+            //Assert
+             Assert.Equal(student.BirthDate,birhtdate);
+        }
+        
     }
 }
